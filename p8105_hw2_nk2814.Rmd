@@ -1,0 +1,29 @@
+---
+title: "p8105_hw2_nk2814"
+author: "Naama Kipperman"
+date: "9/26/2019"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Problem 1
+### Read and clean Mr. Trash Wheel data sheet
+
+```{r}
+
+# First, load necessary packages.
+
+library(tidyverse)
+library(readxl)
+
+# Import excel sheet and name it 'p1_trash', and clean up variable names
+
+p1_trash=read_excel(path="./data/healthyharbor.xlsx") %>% 
+  janitor::clean_names() 
+  
+
+```
+
