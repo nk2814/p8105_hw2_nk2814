@@ -19,9 +19,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(readxl)
 
-# Import excel sheet and name it 'p1_trash', and clean up variable names
+# Import excel file and name it 'p1_trash', specify sheet, and clean up variable names
 
-p1_trash=read_excel(path="./data/healthyharbor.xlsx") %>% 
+p1_trash=read_excel(path="./data/healthyharbor.xlsx", sheet=1) %>% 
   janitor::clean_names() 
   
 
