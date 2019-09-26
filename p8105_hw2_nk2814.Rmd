@@ -35,9 +35,18 @@ p1_trash=read_excel(path="./data/healthyharbor.xlsx", sheet=1, col_names = TRUE,
 
 ### Read and clean precipitation data for 2017
 ```{r}
-p2_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE, skip=1) %>% 
+
+# Read in 2017 sheet
+# Clean variable names
+# Omit rows without precipitation data
+# Add a variable year
+p1_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE, skip=1, range="A2:B14") %>% 
     janitor::clean_names() %>%
-  rename(precipitation=total)
+  rename(precipitation=total) %>% 
+  drop_na(precipitation) %>% 
+  mutate(
+    year=2017
+  )
 
 
 ```
@@ -45,6 +54,18 @@ p2_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE
 ### Read and clean precipitation data for 2018
 
 ```{r}
+
+# Read in 2018 sheet
+# Clean variable names
+# Omit rows without precipitation data
+# Add a variable year (2018)
+p1_2018 = read_excel(path="./data/healthyharbor.xlsx", sheet=3, col_names = TRUE, skip=1, range="A2:B14") %>% 
+    janitor::clean_names() %>%
+  rename(precipitation=total) %>% 
+  drop_na(precipitation) %>% 
+  mutate(
+    year=2018
+  )
 
 
 
@@ -54,7 +75,11 @@ p2_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE
 ### Combine precipitation datasets and convert month to a character variable
 
 ```{r}
-
+p1_combined = 
+  full_join(p1_2017, p1_2018) %>% 
+  rename(
+    month.name=month
+  )
 
 ```
 
