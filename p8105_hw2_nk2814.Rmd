@@ -19,11 +19,43 @@ knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(readxl)
 
-# Import excel file and name it 'p1_trash', specify sheet, and clean up variable names
+# Import excel file and name it 'p1_trash', specify sheet
+# Omit non-data entries (rows with notes / figures; columns containing notes)
+# Clean up variable names
+# Omit rows where dumpster is missing
+# Round the number of sports balls to the nearest integer and converts the result to an integer variable (using as.integer)
 
-p1_trash=read_excel(path="./data/healthyharbor.xlsx", sheet=1) %>% 
-  janitor::clean_names() 
-  
+p1_trash=read_excel(path="./data/healthyharbor.xlsx", sheet=1, col_names = TRUE, range=cell_cols("A:N")) %>% 
+  janitor::clean_names() %>% 
+  drop_na(dumpster) %>% 
+  mutate( 
+      sports_balls =  as.integer(round(sports_balls, digits=0)))
+ 
+```
+
+### Read and clean precipitation data for 2017
+```{r}
+p2_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE, skip=1) %>% 
+    janitor::clean_names() %>%
+  rename(precipitation=total)
+
 
 ```
+
+### Read and clean precipitation data for 2018
+
+```{r}
+
+
+
+```
+
+
+### Combine precipitation datasets and convert month to a character variable
+
+```{r}
+
+
+```
+
 
