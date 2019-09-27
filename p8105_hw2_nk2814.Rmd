@@ -92,7 +92,7 @@ The number of observations in the 2017 precipitation dataset is
 
 ## Problem 2
 
-### Clean the data in pols-month.csv
+### First, clean the data in pols-month.csv
 
 ```{r}
 
@@ -114,7 +114,7 @@ politicians_data = read_csv(file = "./data/pols-month.csv") %>%
 
 ```
 
-### Clean the data in snp.csv in similar manner
+### Second, lean the data in snp.csv in similar manner
 
 ```{r}
 
@@ -133,4 +133,34 @@ snp_data = read_csv(file = "./data/snp.csv") %>%
   arrange(year,month)
 
 ```
+
+### Third, tidy the unemployment data so that it can be merged with the previous datasets
+
+```{r}
+
+# Import unemployment csv
+# Tidy unemployment data such that there's a year, month, and unemployment rate column
+# Change year and month to integers
+# Arrange unemployment dataset by year and month
+
+unemployment = read_csv(file = "./data/unemployment.csv") %>% 
+  pivot_longer(
+    Jan:Dec,
+    names_to="month",
+    values_to="unemployment") %>%
+   janitor::clean_names() %>%
+  mutate(
+    year=as.integer(year)
+  ) %>%
+  mutate(month.abb=month)
+  
+
+```
+
+#### Join the datasets by merging snp into pols, and merging unemployment into the result.
+
+```{r}
+
+```
+
 
