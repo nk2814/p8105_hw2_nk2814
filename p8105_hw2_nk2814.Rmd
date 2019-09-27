@@ -89,8 +89,18 @@ p1_combined =
 The number of observations in the 2017 precipitation dataset is 
 `r nrow(p1_2017)`. The number of observations in the 2018 precipitation dataset is `r nrow(p1_2018)`. The primary variables in the datasets were `r names(p1_2017)`. The total precipitation in 2018 was `r sum(pull(p1_2018,precipitation)) ` inches. The median number of sports balls in a dumpster in 2017 was `r filter(p1_trash, year == 2017) %>% pull(sports_balls) %>% median() ` balls.
 
+## Problem 2
+
+### 1) Clean the data in pols-month.csv
+
 ```{r}
 
+# Import csv file, clean names, and separate 'mon' into 3 integer variables year, month, day
+
+politicians_data = read_csv(file = "./data/pols-month.csv") %>%
+  janitor::clean_names()
+  separate(mon, into=c("year", "month", "day"), sep="-")
 
 ```
 
+First, clean the data in pols-month.csv. Use separate() to break up the variable mon into integer variables year, month, and day; replace month number with month name; create a president variable taking values gop and dem, and remove prez_dem and prez_gop; and remove the day variable.
