@@ -97,6 +97,7 @@ The number of observations in the 2017 precipitation dataset is
 ```{r}
 
 # Import csv file, clean names, and separate 'mon' into 3 integer variables year, month, day
+# Create a president variable taking values gop and dem, and remove prez_dem, prez_gop,day variable
 
 politicians_data = read_csv(file = "./data/pols-month.csv") %>%
   janitor::clean_names() %>% 
@@ -104,13 +105,10 @@ politicians_data = read_csv(file = "./data/pols-month.csv") %>%
   mutate( 
         year =  as.integer(year),
         month = as.integer(month),
-        day = as.integer(day))
-# Create a president variable taking values gop and dem, and remove prez_dem, prez_gop,day variable
-
-politicians_data %>% 
-mutate(presidents = if_else(prez_gop==1, 'gop', 'dem')) %>%
+        day = as.integer(day)) %>% 
+  mutate(presidents = if_else(prez_gop==1, 'gop', 'dem')) %>%
   select(-prez_dem, -prez_gop, -day)
-  
+
 
 
 ```
