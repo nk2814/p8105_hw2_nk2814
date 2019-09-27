@@ -92,12 +92,13 @@ The number of observations in the 2017 precipitation dataset is
 
 ## Problem 2
 
-### 1) Clean the data in pols-month.csv
+### Clean the data in pols-month.csv
 
 ```{r}
 
 # Import csv file, clean names, and separate 'mon' into 3 integer variables year, month, day
 # Create a president variable taking values gop and dem, and remove prez_dem, prez_gop,day variable
+# Arrange politicians dataset by year and month
 
 politicians_data = read_csv(file = "./data/pols-month.csv") %>%
   janitor::clean_names() %>% 
@@ -107,14 +108,29 @@ politicians_data = read_csv(file = "./data/pols-month.csv") %>%
         month = as.integer(month),
         day = as.integer(day)) %>% 
   mutate(presidents = if_else(prez_gop==1, 'gop', 'dem')) %>%
-  select(-prez_dem, -prez_gop, -day)
-
+  select(-prez_dem, -prez_gop, -day) %>% 
+  arrange(year,month)
 
 
 ```
 
-First, clean the data in pols-month.csv. Use separate() to break up the variable mon into integer variables year, month, and day; replace month number with month name; create a president variable taking values gop and dem, and remove prez_dem and prez_gop; and remove the day variable.
+### Clean the data in snp.csv in similar manner
 
-create a president variable taking values gop and dem, and remove prez_dem and prez_gop; and remove the day variable.
+```{r}
 
-clean the data in snp.csv
+# Import csv file, clean names, separate 'date' into 3 integer variables month, day, and year
+# Remove variable 'day'
+# Arrange snp dataset by year and month
+
+snp_data = read_csv(file = "./data/snp.csv") %>%
+  janitor::clean_names() %>% 
+  separate(date, into=c("month", "day", "year"), sep="/") %>% 
+  mutate( 
+        month =  as.integer(month),
+        day = as.integer(day),
+        year = as.integer(year)) %>% 
+  select(-day) %>% 
+  arrange(year,month)
+
+```
+
