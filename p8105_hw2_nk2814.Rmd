@@ -170,11 +170,13 @@ p2_merged =
 
 #### Write a short paragraph about your datasets. Explain briefly what each dataset contained, and describe the resulting dataset (e.g. give the dimension, range of years, and names of key variables).
 
-The politicians dataset (politicians_data) contains data about the numerical breakdown of republicans/democrats in Congress for each month from `r min(pull(politicians_data, year))` to `r max(pull(politicians_data, year))`. 
+The **politicians dataset** (politicians_data) contains data about the numerical breakdown of republicans/democrats in Congress for each month from `r min(pull(politicians_data, year))` to `r max(pull(politicians_data, year))`. 
 There are `r nrow(politicians_data)` observations in this dataset, and `r ncol(politicians_data)` variables, named `r names(politicians_data)`. 
 These variables capture the number of governors, senators, and representatives in each month who are republican and democrat, and which party the president belongs to for each given month. 
 
-The snp dataset (snp_data) contains the closing values of the S&P stock index for every month from `r min(pull(snp_data, year))` to `r max(pull(snp_data, year))`. There are `r nrow(snp_data)` observations in this dataset, and `r ncol(snp_data)` variables, named `r names(snp_data)`. 
+The **snp dataset** (snp_data) contains the closing values of the S&P stock index for every month from `r min(pull(snp_data, year))` to `r max(pull(snp_data, year))`. There are `r nrow(snp_data)` observations in this dataset, and `r ncol(snp_data)` variables, named `r names(snp_data)`. 
 
-The unemployment dataset (unemployment) contains the US unemployment percentage of every month from `r min(pull(unemployment, year))` to `r max(pull(unemployment, year))`.  There are `r nrow(unemployment)` observations in this dataset, and `r ncol(unemployment)` variables, named `r names(unemployment)`. 
+The **unemployment dataset** (unemployment) contains the US unemployment percentage of every month from `r min(pull(unemployment, year))` to `r max(pull(unemployment, year))`.  There are `r nrow(unemployment)` observations in this dataset, and `r ncol(unemployment)` variables, named `r names(unemployment)`. 
+
+The **resulting combined dataset** contains the unemployment percentages, the closing S&P stock index, and political party breakdown of Congress/presidents for each month since 1947. However, it's important to note that this merged dataset only has **complete data** for each month  beginning in the year 1950, as this was the earliest year that the S&P data was available for. 
 
