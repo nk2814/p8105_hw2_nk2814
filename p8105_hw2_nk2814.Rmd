@@ -40,7 +40,7 @@ p1_trash=read_excel(path="./data/healthyharbor.xlsx", sheet=1, col_names = TRUE,
 # Read in 2017 sheet
 # Clean variable names
 # Omit rows without precipitation data
-# Add a variable year
+# Add a variable year (2017)
 p1_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE, skip=1, range="A2:B14") %>% 
     janitor::clean_names() %>%
   rename(precipitation=total) %>% 
@@ -114,7 +114,7 @@ politicians_data = read_csv(file = "./data/pols-month.csv") %>%
 
 ```
 
-### Second, lean the data in snp.csv in similar manner
+### Second, clean the data in snp.csv in similar manner
 
 ```{r}
 
@@ -143,16 +143,14 @@ snp_data = read_csv(file = "./data/snp.csv") %>%
 # Change year and month to integers
 # Arrange unemployment dataset by year and month
 
-unemployment = read_csv(file = "./data/unemployment.csv") %>% 
+unemployment = read_csv(file = "./data/unemployment.csv")%>% 
   pivot_longer(
     Jan:Dec,
     names_to="month",
     values_to="unemployment") %>%
    janitor::clean_names() %>%
   mutate(
-    year=as.integer(year)
-  ) %>%
-  mutate(month.abb=month)
+    year=as.integer(year)) 
   
 
 ```
@@ -160,6 +158,8 @@ unemployment = read_csv(file = "./data/unemployment.csv") %>%
 #### Join the datasets by merging snp into pols, and merging unemployment into the result.
 
 ```{r}
+
+
 
 ```
 
