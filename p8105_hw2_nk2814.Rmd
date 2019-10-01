@@ -26,7 +26,7 @@ library(dplyr)
 # Omit rows where dumpster is missing
 # Round the number of sports balls to the nearest integer and converts the result to an integer variable (using as.integer)
 
-p1_trash=read_excel(path="./data/healthyharbor.xlsx", sheet=1, col_names = TRUE, range=cell_cols("A:N")) %>% 
+p1_trash=read_excel(path="./data/healthyharbor_updated.xlsx", sheet=1, col_names = TRUE, range=cell_cols("A:N")) %>% 
   janitor::clean_names() %>% 
   drop_na(dumpster) %>% 
   mutate( 
@@ -41,7 +41,7 @@ p1_trash=read_excel(path="./data/healthyharbor.xlsx", sheet=1, col_names = TRUE,
 # Clean variable names
 # Omit rows without precipitation data
 # Add a variable year (2017)
-p1_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE, skip=1, range="A2:B14") %>% 
+p1_2017 = read_excel(path="./data/healthyharbor_updated.xlsx", sheet=6, col_names = TRUE, skip=1, range="A2:B14") %>% 
     janitor::clean_names() %>%
   rename(precipitation=total) %>% 
   drop_na(precipitation) %>% 
@@ -60,7 +60,7 @@ p1_2017 = read_excel(path="./data/healthyharbor.xlsx", sheet=4, col_names = TRUE
 # Clean variable names
 # Omit rows without precipitation data
 # Add a variable year (2018)
-p1_2018 = read_excel(path="./data/healthyharbor.xlsx", sheet=3, col_names = TRUE, skip=1, range="A2:B14") %>% 
+p1_2018 = read_excel(path="./data/healthyharbor_updated.xlsx", sheet=5, col_names = TRUE, skip=1, range="A2:B14") %>% 
     janitor::clean_names() %>%
   rename(precipitation=total) %>% 
   drop_na(precipitation) %>% 
@@ -105,7 +105,8 @@ politicians_data = read_csv(file = "./data/pols-month.csv") %>%
   separate(mon, into=c("year", "month", "day"), sep="-") %>% 
   mutate( 
         year =  as.integer(year),
-        month = as.integer(month),
+        month = as.numeric(month),
+        month = month.abb[month],
         day = as.integer(day)) %>% 
   mutate(presidents = if_else(prez_gop==1, 'gop', 'dem')) %>%
   select(-prez_dem, -prez_gop, -day) %>% 
@@ -126,7 +127,8 @@ snp_data = read_csv(file = "./data/snp.csv") %>%
   janitor::clean_names() %>% 
   separate(date, into=c("month", "day", "year"), sep="/") %>% 
   mutate( 
-        month =  as.integer(month),
+        month =  as.numeric(month),
+        month = month.abb[month],
         day = as.integer(day),
         year = as.integer(year)) %>% 
   select(-day) %>% 
@@ -150,7 +152,8 @@ unemployment = read_csv(file = "./data/unemployment.csv")%>%
     values_to="unemployment") %>%
    janitor::clean_names() %>%
   mutate(
-    year=as.integer(year)) 
+    year=as.integer(year)
+    ) 
   
 
 ```
