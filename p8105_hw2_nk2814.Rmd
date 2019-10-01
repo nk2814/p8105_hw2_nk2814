@@ -166,8 +166,13 @@ unemployment = read_csv(file = "./data/unemployment.csv")%>%
 p2_merged = 
   left_join(politicians_data, snp_data, by = c("year", "month")) %>% left_join(unemployment, by=c("year", "month"))
 
-
-
 ```
 
+#### Write a short paragraph about your datasets. Explain briefly what each dataset contained, and describe the resulting dataset (e.g. give the dimension, range of years, and names of key variables).
+
+The pols-month dataset (renamed "politicians_data") contains data about the numerical breakdown of republicans/democrats in Congress for each month from `r min(pull(politicians_data, year))` to `r max(pull(politicians_data, year))`. There are `r nrow(politicians_data)` observations in this dataset, and `r ncol(politicians_data)` columns.
+
+The snp dataset (snp_data) contains the closing values of the S&P stock index for every month from `r min(pull(snp_data, year))` to `r max(pull(snp_data, year))`.
+
+The unemployment dataset (unemployment) contains the US unemployment rate of every month of every year since 1948. 
 
