@@ -159,7 +159,9 @@ unemployment = read_csv(file = "./data/unemployment.csv")%>%
 
 ```
 
-#### Join the datasets by merging snp into pols, and merging unemployment into the result.
+#### Join the datasets by merging snp into pols, and merging unemployment into the result. 
+#### Name resulting dataset p2_merged.
+
 
 ```{r}
 
@@ -202,9 +204,11 @@ I also want there to only be 4 ethnicity categories:
  
  - white non hispanic
  
-So, I need to make sure that other iterations of those categories get relabeled to one of my 4 categories. 
+So, I need to make sure that similar iterations of those categories get recoded to one of my 4 categories. 
 
-Once I've done that, I also want to remove any duplicate rows. 
+Once I've done that, I also want to remove any duplicate rows.
+
+For good measure, I'll also order the dataframe by year.
 ```{r}
 pop_baby_names = 
   read_csv(file="./data/Popular_Baby_names.csv") %>% 
@@ -218,8 +222,32 @@ pop_baby_names =
     ethnicity = replace(ethnicity, ethnicity == "asian and paci", "asian and pacific islander"),
     ethnicity = replace(ethnicity, ethnicity == "black non hisp", "black non hispanic"),
     ethnicity = replace(ethnicity, ethnicity == "white non hisp", "white non hispanic")) %>% 
-  distinct()
+  distinct() %>% 
+  arrange(year_of_birth)
 
 
 ```
 
+
+
+### Create table showing the rank in popularity of the name “Olivia” as a female baby name over time.
+
+
+```{r}
+
+library(knitr) # load knitr packages so we can print nice table.
+
+olivia_popularity = (
+  filter(pop_baby_names, childs_first_name=="olivia")) %>% 
+  select(-gender, -count, -childs_first_name) %>%
+    pivot_wider(
+      names_from = "year_of_birth", 
+      values_from = "rank") %>% 
+    knitr::kable() %>% 
+    print()
+
+
+```
+
+
+### Produce a similar table showing the most popular name among male children over time.
