@@ -251,3 +251,16 @@ olivia_popularity = (
 
 
 ### Produce a similar table showing the most popular name among male children over time.
+
+```{r}
+
+male_popular = (
+  filter(pop_baby_names, gender=="male", rank==1)) %>% 
+  select(-gender, -count, -rank) %>%
+    pivot_wider(
+      names_from = "year_of_birth", 
+      values_from = "childs_first_name")%>% 
+    knitr::kable() %>% 
+    print()
+```
+
