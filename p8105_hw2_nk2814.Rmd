@@ -62,7 +62,7 @@ p1_2017 = read_excel(path="./data/healthyharbor_updated.xlsx", sheet=6, col_name
 
 ```
 
-Similarly, read and clean precipitation data for 2018.
+#### Similarly, read and clean precipitation data for 2018.
 
 Name the dataframe **p1_2018**. 
 
@@ -286,6 +286,6 @@ filter(pop_baby_names, year_of_birth==2016, gender=="male", ethnicity=="white no
     title="Problem 3 scatterplot",
     x="rank in popularity of name",
     y="number of children with a name"
-  )
+  ) 
 ```
 
